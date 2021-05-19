@@ -25,6 +25,19 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/view/{id}", name="view")
+     */
+    public function view(Article $article): Response
+    {
+        if(!$article)
+            return $this->redirectToRoute('home');
+
+        return $this->render("home/view.html.twig", [
+            'article' => $article,
+        ]);
+    }
+
+    /**
      * @Route("/about", name="about")
      */
     public function about(): Response

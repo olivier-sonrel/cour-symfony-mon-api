@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block title %} Accueil {% endblock %}
+{% block body %}
+    <h1>Bienvenue sur la page d'accueil.</h1>
+    <div class="row">
+        <div class="card col-md-4" style="width:18rem">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                {% if article.image starts with 'http' %}
+                    <img style="max-width: 100%" src="{{ article.image }}" alt="{{ article.title }}">{# http://127.0.0.1:8000/rtfm.jpg #}
+                {% else %}
+                    <img style="max-width: 100%"  src="/assets/upload/image/{{ article.image }}" alt="{{ article.title }}">{# http://127.0.0.1:8000/rtfm.jpg #}
+                {% endif %}
+                <div class="card-text" style="max-height: 250px;
+                                            height: 250px;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;">
+                    {{ article.content | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

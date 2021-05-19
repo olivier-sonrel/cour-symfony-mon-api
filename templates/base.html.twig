@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ '/assets/css/bootstrap.css' }}">
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ 'assets/css/bootstrap.css' }}">
+
         {% endblock %}
 
         {% block javascripts %}
@@ -31,7 +32,7 @@
                                 <a class="nav-link" href="#">Features</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
+                                <a class="nav-link" href="{{ path('admin') }}">Admin</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/about">About</a>
