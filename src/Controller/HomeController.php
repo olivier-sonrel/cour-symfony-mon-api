@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Entity\User;
+use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,16 +14,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    private $repoArticle;
+    private $repoCategory;
+
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository)
+    {
+        $this->repoArticle = $articleRepository;
+        $this->repoCategory = $categoryRepository;
+    }
+
     /**
      * @Route("/", name="home")
      */
     public function index(EntityManagerInterface $manager): Response
     {
-        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $datas = $articleRepo->findAll();
-        $articles = array_reverse($datas);
         return $this->render("home/index.html.twig", [
-            'articles' => $articles,
+            'articles' => array_reverse($this->repoArticle->findAll()),
+            'categories' => $this->repoCategory->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/show_by_category/{id}", name="show_by_category")
+     */
+    public function showByCategory(Category $category): Response
+    {
+        return $this->render("home/index.html.twig", [
+            'articles' => $category->getArticles(),
+            'categories' => $this->repoCategory->findAll(),
         ]);
     }
 

@@ -2,27 +2,43 @@
 {% block title %} Accueil {% endblock %}
 {% block body %}
     <h1>Bienvenue sur la page d'accueil.</h1>
-    <div class="row">
-        {% for article in articles %}
+<div class="wrapper d-flex align-items-stretch">
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 16%;">
+        {% for category in categories %}
             <div class="card col-md-4" style="width:18rem">
-                <a href="{{ path('view', {'id': article.id }) }}">
+                <a href="{{ path('show_by_category', {'id': category.id }) }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ article.title }}</h5>
-                        {% if article.image starts with 'http' %}
-                            <img style="max-width: 100%" src="{{ article.image }}" alt="{{ article.title }}">
-                        {% else %}
-                            <img style="max-width: 100%"  src="/assets/upload/image/{{ article.image }}" alt="{{ article.title }}">
-                        {% endif %}
-                            <div class="card-text" style="max-height: 250px;
-                                                    height: 250px;
-                                                    white-space: nowrap;
-                                                    overflow: hidden;
-                                                    text-overflow: ellipsis;">
-                            {{ article.content | raw }}
-                            </div>
+                        <h5 class="card-title">{{ category.title }}{{ category.articles | length }}</h5>
                     </div>
                 </a>
             </div>
         {% endfor %}
     </div>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 80%;">
+        <div class="row">
+            {% for article in articles %}
+                <div class="card col-md-4" style="width:16rem">
+                    <a href="{{ path('view', {'id': article.id }) }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            {% if article.image starts with 'http' %}
+                                <img style="max-width: 100%" src="{{ article.image }}" alt="{{ article.title }}">
+                            {% else %}
+                                <img style="max-width: 100%"  src="/assets/upload/image/{{ article.image }}" alt="{{ article.title }}">
+                            {% endif %}
+                            <div class="card-text" style="max-height: 250px;
+                                                    height: 250px;
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;">
+                                {{ article.content | raw }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
