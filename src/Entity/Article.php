@@ -40,15 +40,15 @@ class Article
     private $categories;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
 
     public function __construct()
     {

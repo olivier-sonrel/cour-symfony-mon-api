@@ -28,6 +28,16 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
+        $user = new User();
+        $user->setUsername('administrator');
+        $user->setFirstName('admin');
+        $user->setLastName('istrator');
+        $user->setEmail('admin@admin.us');
+        $user->setPassword('admin');
+        $user->setCreatedAt(new \DateTime());
+        $manager->persist($user);
+        $users[] = $user;
+
         $categories = [];
         for($i=0; $i < 15; $i++){
             $category = new Category();
